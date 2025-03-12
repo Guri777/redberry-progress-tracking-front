@@ -1,6 +1,7 @@
+import Typography from '@mui/material/Typography';
 import React from 'react';
 const Home = () => {
-  return <p>ToDo</p>;
+  return <Typography mt={20}></Typography>;
 };
 
 export default Home;
