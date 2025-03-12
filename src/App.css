@@ -1,0 +1,10 @@
+@import url('/src/variables.css');
+
+body {
+  background-color: #f9f9f9;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
