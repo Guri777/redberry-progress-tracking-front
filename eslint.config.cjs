@@ -17,6 +17,7 @@ module.exports = [
       globals: {
         window: true, // equivalent to browser: true
         document: true,
+        HTMLElement: true, 
       },
     },
     plugins: {
