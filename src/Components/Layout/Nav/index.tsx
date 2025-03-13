@@ -48,8 +48,8 @@ const Nav = (props: NavButtonProps) => {
         elevation={0}
         sx={{
           bgcolor: {
-            xs: scrolled || drawerOpen ? 'var(--nav-primary)' : 'transparent',
-            md: scrolled ? 'var(--nav-primary)' : 'transparent',
+            xs: scrolled || drawerOpen ? 'var(--nav-secondary)' : 'transparent',
+            md: scrolled ? 'var(--nav-secondary)' : 'transparent',
           },
           transition: 'background-color .25s ease-out',
         }}

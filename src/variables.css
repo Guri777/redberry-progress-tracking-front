@@ -1,4 +1,23 @@
 :root {
-    --nav-primary: #8338EC;
-  }
-  
+  --nav-primary: #8338ec;
+  --nav-secondary: #e7e7e7;
+
+  --board-column-to-do: #fbc02d;
+  --board-column-progress: #ff5722;
+  --board-column-ready-to-test: #e91e63;
+  --board-column-completed: #2196f3;
+
+  /* Department Colors */
+  --department-admin: #ff5733;
+  --department-human-resources: #33ff57;
+  --department-finance: #3357ff;
+  --department-sales-marketing: #ff33a1;
+  --department-logistics: #ffc300;
+  --department-technology: #900c3f;
+  --department-media: #8e44ad;
+
+  /* Status Icon Colors */
+  --status-low: green;
+  --status-medium: yellow;
+  --status-high: red;
+}
