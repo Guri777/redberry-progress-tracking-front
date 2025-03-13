@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { Portal } from '@mui/material';
@@ -24,12 +23,10 @@ const CustomDrawer = ({
   onOpen,
   onClose,
 }: CustomDrawerProps) => {
-  const pathname = usePathname();
-
   useEffect(() => {
     onClose();
     document.body.style.overflow = 'auto';
-  }, [pathname, onClose]);
+  }, [onClose]);
 
   const toggle = () => {
     if (open) {

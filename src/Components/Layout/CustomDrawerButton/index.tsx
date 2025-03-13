@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -17,7 +17,7 @@ interface CustomDrawerButtonProps {
 const CustomDrawerButton = (props: CustomDrawerButtonProps) => {
   const { href, onClose, prefix, sx, text, variant } = props;
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   const handleClick = (isSamePage: boolean) => {
     if (isSamePage) {
@@ -31,7 +31,8 @@ const CustomDrawerButton = (props: CustomDrawerButtonProps) => {
       <Divider sx={{ borderColor: 'black', opacity: 0.1 }} />
       <Stack alignItems='center' padding='26px 32px 36px'>
         <CustomNavButton
-          onClick={() => handleClick(pathname === href + '/')}
+          // onClick={() => handleClick(pathname === href + '/')}
+          onClick={() => handleClick(false)}
           prefix={prefix}
           variant={variant}
           text={text}
