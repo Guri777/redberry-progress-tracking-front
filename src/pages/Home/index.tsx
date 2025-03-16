@@ -1,27 +1,78 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import Board from '@/Components/Board';
 import CustomWrapper from '@/Components/Layout/CustomWrapper';
 import Spinner from '@/Components/Spinner';
+import Filters from '@/Components/Filters';
 import { useFetchQuery } from '@/hooks/API/useQuery';
+import { useFilters } from '@/hooks/useFilters';
 import { Task } from '@/types';
-import Typography from '@mui/material/Typography';
-import React from 'react';
+import { FilterKey } from '@/utils/consts';
 
-const Home = () => {
+const Home: React.FC = () => {
   const { data, error, isLoading } = useFetchQuery<Task[]>('tasks', '/tasks');
+  const {
+    openFilter,
+    anchorEl,
+    tempSelection,
+    filteredTasks,
+    availableFilters,
+    handleOpenFilter,
+    handleCloseFilter,
+    handleFilterChange,
+    handleCheckboxChange,
+  } = useFilters(data);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (containerRef.current)
+        setContainerWidth(containerRef.current.offsetWidth);
+    }, 1000);
+  }, [containerRef]);
 
   return (
     <CustomWrapper>
       <Spinner isLoading={isLoading} />
-
-      {error && <p>Error: {error.message}</p>}
+      {error && <Typography color='error'>Error: {error.message}</Typography>}
 
       {!isLoading && (
         <>
           <Typography mt={14} fontWeight={600} fontSize={24}>
             დავალებების გვერდი
           </Typography>
-          {/* FILTERS */}
-          <Board tasks={data ?? []} />
+
+          <Box
+            ref={containerRef}
+            display='flex'
+            gap={4}
+            mb={5}
+            mt={5}
+            flexWrap='wrap'
+            border='1px solid gray'
+            borderRadius={2}
+            maxWidth='fit-content'
+          >
+            {(Object.keys(availableFilters) as FilterKey[]).map((key) => (
+              <Filters
+                key={key}
+                filterKey={key}
+                openFilter={openFilter}
+                anchorEl={anchorEl}
+                tempSelection={tempSelection}
+                availableFilters={availableFilters}
+                containerWidth={containerWidth}
+                handleOpenFilter={handleOpenFilter}
+                handleCloseFilter={handleCloseFilter}
+                handleFilterChange={handleFilterChange}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+            ))}
+          </Box>
+
+          <Board tasks={filteredTasks} />
         </>
       )}
     </CustomWrapper>
