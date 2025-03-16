@@ -16,6 +16,7 @@ export const useFilters = (data: Task[] | undefined) => {
     assignee: searchParams.getAll('assignees') || [],
     departments: [],
     priorities: [],
+    assignees: [],
   };
 
   const availableFilters = useMemo(() => {
@@ -34,11 +35,6 @@ export const useFilters = (data: Task[] | undefined) => {
     return { departments, priorities, assignees };
   }, [data]);
 
-  useEffect(() => {
-    if (!openFilter) return;
-    setTempSelection([...searchParams.getAll(openFilter)]);
-  }, [openFilter]);
-
   const handleOpenFilter = (
     event: MouseEvent<HTMLButtonElement>,
     filterKey: FilterKey,
@@ -51,19 +47,33 @@ export const useFilters = (data: Task[] | undefined) => {
     setOpenFilter(null);
     setAnchorEl(null);
   };
-
   const handleFilterChange = (key: FilterKey) => {
     const newParams = new URLSearchParams(searchParams);
+
     newParams.delete(key);
-    tempSelection.forEach((value) => newParams.append(key, value));
+    if (tempSelection.length > 0) {
+      newParams.set(
+        key,
+        JSON.stringify(
+          tempSelection.filter((selectedFields) =>
+            (availableFilters as { [key: string]: string[] })[key].includes(
+              selectedFields,
+            ),
+          ),
+        ),
+      );
+    }
     navigate({ search: newParams.toString() }, { replace: true });
+
     handleCloseFilter();
   };
 
   const handleCheckboxChange = (value: string) => {
-    setTempSelection((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
-    );
+    if (tempSelection.includes(value)) {
+      setTempSelection((prev) => prev.filter((val) => val !== value));
+    } else {
+      setTempSelection((prev) => [...prev, value]);
+    }
   };
 
   const filteredTasks = useMemo(() => {
@@ -71,25 +81,82 @@ export const useFilters = (data: Task[] | undefined) => {
     return data.filter((task) => {
       return (
         (!selectedFilters.department.length ||
-          selectedFilters.department.includes(task.department.name)) &&
+          selectedFilters.department.some((department) =>
+            department.includes(task.department.name),
+          )) &&
         (!selectedFilters.priority.length ||
-          selectedFilters.priority.includes(task.priority.name)) &&
+          selectedFilters.priority.some((priority) =>
+            priority.includes(task.priority.name),
+          )) &&
         (!selectedFilters.assignee.length ||
-          selectedFilters.assignee.includes(task.employee.name))
+          selectedFilters.assignee.some((assignee) =>
+            assignee.includes(task.employee.name),
+          ))
       );
     });
   }, [data, selectedFilters]);
+  const getAllSelectedValues = () => {
+    return Object.values(selectedFilters)
+      .flatMap((item) => item)
+      .map((item) => {
+        try {
+          return Array.isArray(item) ? item : JSON.parse(item);
+        } catch {
+          return item;
+        }
+      })
+      .flat();
+  };
+  const removeFilter = (filter: string) => {
+    const urlParams = new URLSearchParams(window.location.search);
 
+    const entries = Array.from(urlParams.entries());
+
+    for (const [key, value] of entries) {
+      try {
+        let parsedArray: string[] = JSON.parse(value);
+
+        if (Array.isArray(parsedArray)) {
+          parsedArray = parsedArray.filter((item) => item !== filter);
+
+          if (parsedArray.length > 0) {
+            urlParams.set(key, JSON.stringify(parsedArray));
+          } else {
+            urlParams.delete(key);
+          }
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+
+    navigate({ search: urlParams.toString() }, { replace: true });
+  };
+
+  const removeAllFilters = () => {
+    const newParams = new URLSearchParams();
+
+    Object.keys(selectedFilters).forEach((key) => {
+      selectedFilters[key as FilterKey] = [];
+      newParams.delete(key);
+    });
+
+    navigate({ search: newParams.toString() }, { replace: true });
+  };
   return {
     openFilter,
     anchorEl,
     tempSelection,
     selectedFilters,
     filteredTasks,
+    allSelectedFilters: getAllSelectedValues(),
     availableFilters,
     handleOpenFilter,
     handleCloseFilter,
     handleFilterChange,
     handleCheckboxChange,
+    getAllSelectedValues,
+    removeFilter,
+    removeAllFilters,
   };
 };

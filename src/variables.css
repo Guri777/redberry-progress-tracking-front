@@ -21,4 +21,6 @@
   --status-low: green;
   --status-medium: yellow;
   --status-high: red;
+
+  --card-border: #cbcbcb;
 }

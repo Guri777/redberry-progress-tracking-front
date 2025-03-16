@@ -26,7 +26,7 @@ export type FilterKey =
   | 'assignee'
   | 'priority'
   | 'departments'
-  | 'assignee'
+  | 'assignees'
   | 'priorities';
 
 export const FILTER_GEORGIAN_LABELS = {
