@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Board from '@/Components/Board';
 import CustomWrapper from '@/Components/Layout/CustomWrapper';
 import Spinner from '@/Components/Spinner';
@@ -8,6 +8,7 @@ import { useFetchQuery } from '@/hooks/API/useQuery';
 import { useFilters } from '@/hooks/useFilters';
 import { Task } from '@/types';
 import { FilterKey } from '@/utils/consts';
+import SelectedFiltersSection from '@/Components/SelectedFiltersSection';
 
 const Home: React.FC = () => {
   const { data, error, isLoading } = useFetchQuery<Task[]>('tasks', '/tasks');
@@ -76,35 +77,11 @@ const Home: React.FC = () => {
           </Box>
 
           {allSelectedFilters && allSelectedFilters.length > 0 && (
-            <Box display='flex' flexWrap='wrap' gap={2} mb={5}>
-              {allSelectedFilters.map((filterName, index) => (
-                <Typography
-                  p='8px 16px'
-                  fontSize={12}
-                  borderRadius={20}
-                  border='2px solid var(--card-border)'
-                  key={index}
-                >
-                  {filterName}{' '}
-                  <Box
-                    onClick={() => removeFilter(filterName)}
-                    component='span'
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    X
-                  </Box>
-                </Typography>
-              ))}
-              <Typography
-                onClick={removeAllFilters}
-                p='8px 16px'
-                fontFamily="'Noto Sans Georgian', Arial, sans-serif"
-                fontSize={12}
-                sx={{ cursor: 'pointer' }}
-              >
-                გასუფთავება
-              </Typography>
-            </Box>
+            <SelectedFiltersSection
+              filters={allSelectedFilters}
+              removeAllFilters={removeAllFilters}
+              removeFilter={removeFilter}
+            />
           )}
           <Board tasks={filteredTasks} />
         </>
