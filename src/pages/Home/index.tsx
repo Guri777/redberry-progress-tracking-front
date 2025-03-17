@@ -34,7 +34,7 @@ const Home: React.FC = () => {
       if (containerRef.current)
         setContainerWidth(containerRef.current.offsetWidth);
     }, 1000);
-  }, [containerRef]);
+  }, [containerRef, isLoading]);
 
   return (
     <CustomWrapper>
