@@ -31,7 +31,11 @@ const BoardColumn = ({ status, tasks }: BoardColumnProps) => {
         </Typography>
 
         {filteredTasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+            borderColor={BOARD_COLUMN_COLORS[status.name]}
+          />
         ))}
       </Box>
     </Grid>

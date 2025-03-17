@@ -9,11 +9,20 @@ import TaskFooter from '@/Components/TaskFooter';
 
 interface TaskCardProps {
   task: Task;
+  borderColor?: string;
 }
 
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, borderColor: _borderColor }: TaskCardProps) => {
   return (
-    <Card variant='outlined' sx={{ mt: 2, borderRadius: 2, pt: 2 }}>
+    <Card
+      variant='outlined'
+      sx={{
+        mt: 2,
+        borderRadius: 2,
+        pt: 2,
+        borderColor: _borderColor ?? 'inherit',
+      }}
+    >
       <TaskInfo task={task} />
       <CardContent>
         <Typography variant='subtitle1' fontWeight='bold'>
