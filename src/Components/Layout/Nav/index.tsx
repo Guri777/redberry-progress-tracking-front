@@ -88,7 +88,10 @@ const Nav = (props: NavButtonProps) => {
                   display={{ xs: 'none', md: 'flex' }}
                 >
                   {buttons?.map(
-                    ({ text, variant, sx, prefix }: NavButton, index) => (
+                    (
+                      { text, variant, sx, prefix, onClick }: NavButton,
+                      index,
+                    ) => (
                       <CustomNavButton
                         key={index}
                         sx={{
@@ -98,6 +101,7 @@ const Nav = (props: NavButtonProps) => {
                         }}
                         variant={variant}
                         text={text}
+                        onClick={onClick}
                         prefix={prefix}
                       />
                     ),

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Board from '@/Components/Board';
 import CustomWrapper from '@/Components/Layout/CustomWrapper';
@@ -9,8 +9,15 @@ import { useFilters } from '@/hooks/useFilters';
 import { Task } from '@/types';
 import { FilterKey } from '@/utils/consts';
 import SelectedFiltersSection from '@/Components/SelectedFiltersSection';
+import UserFormModal from '@/Components/UserFormModal'; // Import the modal component
+import { useSearchParams } from 'react-router-dom';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  isUserModalOpen: boolean;
+  setIsUserModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
   const { data, error, isLoading } = useFetchQuery<Task[]>('tasks', '/tasks');
   const {
     openFilter,
@@ -29,6 +36,13 @@ const Home: React.FC = () => {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleUserModalClose = () => {
+    searchParams.delete('user-modal-open');
+    setSearchParams(searchParams);
+    setIsUserModalOpen(false);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,6 +50,18 @@ const Home: React.FC = () => {
         setContainerWidth(containerRef.current.offsetWidth);
     }, 1000);
   }, [containerRef, isLoading]);
+
+  const handleUserSubmit = (formData: any) => {
+    console.log('Form Submitted:', formData);
+    setIsUserModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (searchParams.get('user-modal-open') === 'true') {
+      setIsUserModalOpen(true);
+    }
+  }, [searchParams, isLoading]);
 
   return (
     <CustomWrapper>
@@ -83,9 +109,14 @@ const Home: React.FC = () => {
               removeFilter={removeFilter}
             />
           )}
-          <Board tasks={filteredTasks} />
+          <Suspense fallback={<Spinner isLoading={true} />}>
+            <Board tasks={filteredTasks} />
+          </Suspense>
         </>
       )}
+
+      {/* User Form Modal */}
+      <UserFormModal open={isUserModalOpen} onClose={handleUserModalClose} />
     </CustomWrapper>
   );
 };
