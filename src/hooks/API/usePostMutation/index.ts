@@ -11,7 +11,10 @@ const apiClient = axios.create({
   },
 });
 
-export const usePostMutation = <T, V>(url: string) => {
+export const usePostMutation = <T, V>(
+  url: string,
+  method: 'POST' | 'PUT' = 'POST',
+) => {
   return useMutation<T, Error, V>({
     mutationFn: async (data: V) => {
       const isFormData = data instanceof FormData;
@@ -19,7 +22,13 @@ export const usePostMutation = <T, V>(url: string) => {
         ? { 'Content-Type': 'multipart/form-data' }
         : { 'Content-Type': 'application/json' };
 
-      const response = await apiClient.post<T>(url, data, { headers });
+      const response = await apiClient.request<T>({
+        url,
+        method,
+        data,
+        headers,
+      });
+
       return response.data;
     },
   });

@@ -17,8 +17,6 @@ const DepartmentIcon = (props: StatusIconProps) => {
   return (
     <Grid
       container
-      borderRadius={1}
-      border={`1px solid ${DEPARTMENT_COLORS[title]}`}
       maxWidth='fit-content'
       gap={0.5}
       p='4px 12px 4px 4px'
@@ -32,14 +30,18 @@ const DepartmentIcon = (props: StatusIconProps) => {
       <Grid item>
         <Tooltip title={title} arrow>
           <Typography
-            color={DEPARTMENT_COLORS[title]}
+            color='white'
             noWrap
+            bgcolor={DEPARTMENT_COLORS[title]}
+            borderRadius={20}
             sx={{
               maxWidth: '100px',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
               display: 'block',
+              px: 2,
+              py: '5px',
             }}
           >
             {title}

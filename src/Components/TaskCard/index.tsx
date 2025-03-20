@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import { Task } from '@/types';
 import TaskInfo from '@/Components/TaskInfo';
 import TaskFooter from '@/Components/TaskFooter';
+import { useNavigate } from 'react-router-dom';
 
 interface TaskCardProps {
   task: Task;
@@ -13,10 +14,17 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ task, borderColor: _borderColor }: TaskCardProps) => {
+  const navigate = useNavigate();
+
+  const handleTaskClick = () => {
+    navigate('/task/' + task.id);
+  };
   return (
     <Card
       variant='outlined'
+      onClick={handleTaskClick}
       sx={{
+        cursor: 'pointer',
         mt: 2,
         borderRadius: 2,
         pt: 2,

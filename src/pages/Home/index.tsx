@@ -95,8 +95,6 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
           </Suspense>
         </>
       )}
-
-      {/* User Form Modal */}
     </CustomWrapper>
   );
 };

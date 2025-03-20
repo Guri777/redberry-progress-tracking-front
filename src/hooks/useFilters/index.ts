@@ -70,9 +70,13 @@ export const useFilters = (data: Task[] | undefined) => {
 
   const handleCheckboxChange = (value: string) => {
     if (tempSelection.includes(value)) {
-      setTempSelection((prev) => prev.filter((val) => val !== value));
+      if (openFilter === 'assignees' || openFilter === 'assignee') {
+        setTempSelection([]);
+      } else setTempSelection((prev) => prev.filter((val) => val !== value));
     } else {
-      setTempSelection((prev) => [...prev, value]);
+      if (openFilter === 'assignees' || openFilter === 'assignee') {
+        setTempSelection([value]);
+      } else setTempSelection((prev) => [...prev, value]);
     }
   };
 

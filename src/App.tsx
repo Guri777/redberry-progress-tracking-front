@@ -9,6 +9,7 @@ import Nav from '@/Components/Layout/Nav';
 import CreateTask from './pages/CreateTask';
 import UserFormModal from './Components/UserFormModal';
 import { useSearchParams } from 'react-router-dom';
+import TaskSingle from './pages/TaskSingle';
 
 function App() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -64,6 +65,10 @@ function App() {
           path='create-task'
           element={<CreateTask openUserModal={openUserModal} />}
         />
+          <Route
+    path='task/:taskId'  // Define the dynamic taskId parameter
+    element={<TaskSingle />}  // Component to handle task detail display
+  />
       </Routes>
     </>
   );

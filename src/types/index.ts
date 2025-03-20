@@ -41,7 +41,7 @@ export interface Priority {
 }
 
 export interface TaskStatus {
-  id: string;
+  id: string | number;
   name: string;
 }
 
@@ -55,4 +55,12 @@ export interface Task {
   priority: Priority;
   status: TaskStatus;
   total_comments: number;
+}
+
+export interface Comment {
+  id: string;
+  text: string;
+  author_nickname: string;
+  author_avatar: string;
+  sub_comments: Comment[];
 }
