@@ -16,6 +16,7 @@ import { useFetchQuery } from '@/hooks/API/useQuery';
 import Spinner from '../Spinner';
 import { usePostMutation } from '@/hooks/API/usePostMutation';
 import { base64ToFile } from '@/utils/helpers';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface Props {
   open: boolean;
@@ -37,6 +38,8 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
   const { mutate, isPending } = usePostMutation<FormValues, FormData>(
     '/employees',
   );
+
+  const queryClient = useQueryClient();
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false); // State for success snackbar
 
@@ -71,6 +74,8 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
 
     mutate(formData, {
       onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['employees'] });
+
         setOpenSnackbar(true);
         localStorage.removeItem('userForm');
         onClose();

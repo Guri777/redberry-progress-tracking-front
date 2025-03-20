@@ -17,9 +17,9 @@ export interface NavButtonProps {
   buttons?: NavButton[];
 }
 
-export interface Status{
-  id: string,
-  name: string
+export interface Status {
+  id: number;
+  name: string;
 }
 export interface Department {
   id: number;
@@ -40,7 +40,7 @@ export interface Priority {
   icon: string;
 }
 
-export interface Status {
+export interface TaskStatus {
   id: string;
   name: string;
 }
@@ -53,6 +53,6 @@ export interface Task {
   department: Department;
   employee: Employee;
   priority: Priority;
-  status: Status;
+  status: TaskStatus;
   total_comments: number;
 }

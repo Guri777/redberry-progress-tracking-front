@@ -2,33 +2,85 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { FormValues } from '@/types/UserFormTypes';
 
-interface Props {
-  fieldName: keyof FormValues;
-  watch: (field: keyof FormValues, defaultValue?: any) => any;
+interface ValidationRule {
+  name: string;
+  params?: Record<string, any>;
 }
 
-const ValidationMessages: React.FC<Props> = ({ fieldName, watch }) => {
+interface PossibleErrors {
+  field: keyof FormValues;
+  type: string;
+  validations: ValidationRule[];
+}
+
+interface Props {
+  fieldName: keyof FormValues;
+  field?: { label?: string; type?: string };
+  watch: (field: keyof FormValues, defaultValue?: any) => any;
+  possibleErrors?: PossibleErrors;
+}
+
+const ValidationMessages: React.FC<Props> = ({
+  fieldName,
+  field,
+  watch,
+  possibleErrors,
+}) => {
   const fieldValue = watch(fieldName, '');
-  const messages = [
-    {
-      condition: fieldValue
-        ? /^[\u10A0-\u10FFa-zA-Z\s]+$/.test(fieldValue)
-        : false,
-      message: 'მხოლოდ ქართული და ლათინური ასოები',
-    },
-    {
-      condition: fieldValue ? fieldValue.length >= 2 : false,
-      message: 'მინიმუმ 2 სიმბოლო',
-    },
-    {
-      condition: fieldValue ? fieldValue.length <= 255 : true,
-      message: 'მაქსიმუმ 255 სიმბოლო',
-    },
-    {
-      condition: !!fieldValue,
-      message: `${fieldName === 'name' ? 'სახელი' : 'გვარი'} აუცილებელია`,
-    },
-  ];
+  let messages: { condition: boolean; message: string }[] = [];
+  possibleErrors?.validations?.forEach((possibleError) => {
+    let error: { condition: boolean; message: string } = {
+      condition: true,
+      message: '',
+    };
+
+    switch (possibleError.name) {
+      case 'minLengthTest':
+        const min = possibleError.params?.min ?? 4;
+        if (!fieldValue) return;
+        error = {
+          condition: fieldValue?.length >= min,
+          message: `მინიმუმ ${possibleError.params?.min ?? 4} სიმბოლო`,
+        };
+        break;
+      case 'maxLengthTest':
+        if (!fieldValue) return;
+        const max = possibleError.params?.max ?? 255;
+        error = {
+          condition: fieldValue?.length <= max,
+          message: `მაქსიმუმ ${possibleError.params?.max ?? 255} სიმბოლო`,
+        };
+        break;
+      case 'min':
+        error = {
+          condition: fieldValue?.length >= possibleError.params?.min,
+          message: `მინიმუმ ${possibleError.params?.min} სიმბოლო`,
+        };
+        break;
+      case 'max':
+        error = {
+          condition: fieldValue?.length <= possibleError.params?.max,
+          message: `მაქსიმუმ ${possibleError.params?.max} სიმბოლო`,
+        };
+        break;
+      case 'required':
+        error = {
+          condition: Boolean(fieldValue),
+          message: `${field?.label?.replaceAll('*', '') || (fieldName === 'name' ? 'სახელი' : 'გვარი')} აუცილებელია`,
+        };
+        break;
+    }
+    messages.push(error);
+  });
+
+  if (field?.type === 'select' || field?.type === 'date') {
+    messages = [
+      {
+        condition: Boolean(fieldValue),
+        message: `${field?.label?.replaceAll('*', '') || (fieldName === 'name' ? 'სახელი' : 'გვარი')} აუცილებელია`,
+      },
+    ];
+  }
 
   return (
     <Box sx={{ mt: 1, fontSize: '14px' }}>

@@ -11,13 +11,15 @@ import useTheme from '@mui/material/styles/useTheme';
 import useCustomMediaQuery from '@/hooks/useCustomMediaQuery';
 import CustomWrapper from '@/Components/Layout/CustomWrapper';
 import CustomDrawer from '@/Components/Layout/CustomDrawer';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CustomNavButton from '../CustomNavButton';
 import { NavButton, NavButtonProps } from '@/types';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = (props: NavButtonProps) => {
   const { buttons } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   const theme = useTheme();
 
@@ -62,7 +64,7 @@ const Nav = (props: NavButtonProps) => {
               columnGap={8.75}
               p={{ xs: '36px 0 24px', md: '30px 0' }}
             >
-              <Box component='a' href='/'>
+              <Button onClick={() => navigate('/')}>
                 <Typography
                   fontSize={25}
                   color={drawerOpen ? 'white' : 'var(--nav-primary)'}
@@ -70,7 +72,7 @@ const Nav = (props: NavButtonProps) => {
                   Momentum
                 </Typography>
                 {/* TODO ADD SVG */}
-              </Box>
+              </Button>
               {isMd ? (
                 <CustomDrawer
                   buttons={buttons}

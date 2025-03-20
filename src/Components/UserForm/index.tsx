@@ -5,6 +5,7 @@ import useFormPersist from 'react-hook-form-persist';
 import { Grid } from '@mui/material';
 import { schema, FormValues, FormFieldType } from '@/types/UserFormTypes';
 import FormField from './FormField';
+import { extractValidationRules } from '@/utils/helpers';
 
 interface Props {
   onSubmit: (data: FormValues) => void;
@@ -56,6 +57,7 @@ const UserForm: React.FC<Props> = ({ onSubmit, formFields }) => {
                 watch={watch}
                 formState={formState}
                 errors={formState.errors}
+                possibleErrors={extractValidationRules(schema, field.name)}
               />
             </Grid>
           ),

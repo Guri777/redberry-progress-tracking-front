@@ -36,13 +36,6 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleUserModalClose = () => {
-    searchParams.delete('user-modal-open');
-    setSearchParams(searchParams);
-    setIsUserModalOpen(false);
-  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -50,18 +43,6 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
         setContainerWidth(containerRef.current.offsetWidth);
     }, 1000);
   }, [containerRef, isLoading]);
-
-  const handleUserSubmit = (formData: any) => {
-    console.log('Form Submitted:', formData);
-    setIsUserModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (searchParams.get('user-modal-open') === 'true') {
-      setIsUserModalOpen(true);
-    }
-  }, [searchParams, isLoading]);
 
   return (
     <CustomWrapper>
@@ -116,7 +97,6 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
       )}
 
       {/* User Form Modal */}
-      <UserFormModal open={isUserModalOpen} onClose={handleUserModalClose} />
     </CustomWrapper>
   );
 };

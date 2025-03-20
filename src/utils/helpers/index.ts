@@ -35,3 +35,23 @@ export const base64ToFile = (base64: string, filename: string): File => {
 
   return new File([u8arr], filename, { type: mime });
 };
+
+export const extractValidationRules = (
+  schema: { fields: { [x: string]: any } },
+  fieldName: string | number,
+) => {
+  const field = schema.fields[fieldName];
+
+  if (!field) return `Field "${fieldName}" not found`;
+
+  return {
+    field: fieldName,
+    type: field.type,
+    validations: field.tests.map(
+      (test: { OPTIONS: { name: any; params: any } }) => ({
+        name: test.OPTIONS.name,
+        params: test.OPTIONS.params,
+      }),
+    ),
+  };
+};
