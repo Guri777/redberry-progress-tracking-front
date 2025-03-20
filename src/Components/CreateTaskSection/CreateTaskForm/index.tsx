@@ -148,7 +148,27 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
                 createTaskFormSchema,
                 field.name,
               )}
-              sx={{ maxWidth: 700 }}
+              sx={{
+                maxWidth: 700,
+                input: {
+                  px: 1,
+                  bgcolor: 'var(--new-task-input-bg)',
+                  borderRadius: '6px',
+                },
+                textarea: {
+                  bgcolor: 'var(--new-task-input-bg)',
+                  borderRadius: '6px',
+                  px: 1,
+                },
+                '& .MuiSelect-select': {
+                  bgcolor: 'var(--new-task-input-bg)',
+                  display: 'flex',
+                  px: 1,
+                },
+                '& .MuiInputBase-multiline': {
+                  py: 0,
+                },
+              }}
             />
           </Grid>
         ))}

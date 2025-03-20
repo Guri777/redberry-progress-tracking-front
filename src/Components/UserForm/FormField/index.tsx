@@ -9,7 +9,6 @@ import {
 import {
   TextField,
   MenuItem,
-  InputAdornment,
   Typography,
   Box,
   Button,
@@ -90,15 +89,6 @@ const FormField: React.FC<Props> = ({
             }
             required
             defaultValue={value} // Use the first option as the default
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <></>
-                  </InputAdornment>
-                ),
-              },
-            }}
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
             sx={{
@@ -234,15 +224,6 @@ const FormField: React.FC<Props> = ({
             variant='standard'
             label={field.label}
             fullWidth
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <></>
-                  </InputAdornment>
-                ),
-              },
-            }}
             margin='dense'
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
@@ -303,25 +284,36 @@ const FormField: React.FC<Props> = ({
             error={!!errors[field.name as keyof FormValues]}
             InputProps={{
               startAdornment: (
-                <InputAdornment position='start'>
-                  <Icon onClick={handleIconClick} sx={{ cursor: 'pointer' }}>
-                    <img
-                      style={{ paddingTop: '2px', paddingLeft: '10px' }}
-                      src={`/images/icons/datepicker${
-                        errors[field.name as keyof FormValues]
-                          ? '-red'
-                          : formState.touchedFields[
-                                field.name as keyof FormValues
-                              ]
-                            ? '-green'
-                            : ''
-                      }.svg`}
-                      width={16}
-                      height={16}
-                      alt='date-picker'
-                    />
-                  </Icon>
-                </InputAdornment>
+                <Icon
+                  onClick={handleIconClick}
+                  sx={{
+                    width: '30px',
+                    height: '30px',
+                    background: 'var(--new-task-input-bg)!important',
+                    cursor: 'pointer',
+                    bgcolor: 'white',
+                  }}
+                >
+                  <img
+                    style={{
+                      paddingTop: '6px',
+                      paddingLeft: '15px',
+                      background: 'var(--new-task-input-bg)',
+                    }}
+                    src={`/images/icons/datepicker${
+                      errors[field.name as keyof FormValues]
+                        ? '-red'
+                        : formState.touchedFields[
+                              field.name as keyof FormValues
+                            ]
+                          ? '-green'
+                          : ''
+                    }.svg`}
+                    width={16}
+                    height={16}
+                    alt='date-picker'
+                  />
+                </Icon>
               ),
               inputRef: dateInputRef,
 
