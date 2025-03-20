@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Controller,
   Control,
@@ -14,6 +14,7 @@ import {
   Box,
   Button,
   SxProps,
+  Icon,
 } from '@mui/material';
 import ImageUpload from '@/Components/ImageUpload';
 import ValidationMessages from '@/Components/UserForm/ValidationMessages';
@@ -55,6 +56,14 @@ const FormField: React.FC<Props> = ({
       }
     }
   }, [watch(field?.attrs?.depends_on)]);
+
+  const dateInputRef = useRef<HTMLInputElement>(null);
+  const handleIconClick = () => {
+    if (dateInputRef.current) {
+      dateInputRef.current.showPicker();
+    }
+  };
+
   switch (field.type) {
     case 'select':
       return (
@@ -292,6 +301,39 @@ const FormField: React.FC<Props> = ({
             InputLabelProps={{ shrink: true }} // Keeps label above the input
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <Icon onClick={handleIconClick} sx={{ cursor: 'pointer' }}>
+                    <img
+                      style={{ paddingTop: '2px', paddingLeft: '10px' }}
+                      src={`/images/icons/datepicker${
+                        errors[field.name as keyof FormValues]
+                          ? '-red'
+                          : formState.touchedFields[
+                                field.name as keyof FormValues
+                              ]
+                            ? '-green'
+                            : ''
+                      }.svg`}
+                      width={16}
+                      height={16}
+                      alt='date-picker'
+                    />
+                  </Icon>
+                </InputAdornment>
+              ),
+              inputRef: dateInputRef,
+
+              sx: {
+                '& input[type="date"]::-webkit-calendar-picker-indicator': {
+                  display: 'none',
+                },
+                '& input[type="date"]': {
+                  appearance: 'none',
+                },
+              },
+            }}
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '3px',
@@ -300,7 +342,6 @@ const FormField: React.FC<Props> = ({
                   : formState.touchedFields[field.name as keyof FormValues]
                     ? '1px solid green'
                     : '1px solid #D3D3D3',
-
                 '&::before, &:hover::before': {
                   borderColor: 'transparent!important',
                 },

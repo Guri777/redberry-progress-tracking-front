@@ -129,7 +129,10 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
       let value = data[key as keyof FormValues] as string | Blob;
       if (key === 'due_date') {
         const date = new Date(data[key]);
-        value = date.toISOString().split('T')[0];
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        value = `${year}-${month}-${day}`;
       }
       formData.append(key, value);
     });
@@ -156,7 +159,7 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
   };
 
   return (
-    <Box bgcolor='#F3F3F3' mt={4} borderRadius={2} pl={4} py={4}>
+    <Box bgcolor='var(--new-task-bg)' mt={4} borderRadius={2} pl={4} py={4}>
       <CreateTaskForm onSubmit={onSubmit} formFields={formFields} />
 
       <Box

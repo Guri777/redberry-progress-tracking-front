@@ -11,7 +11,12 @@ interface CreateTaskProps {
 const CreateTask: React.FC<CreateTaskProps> = ({ openUserModal }) => {
   return (
     <CustomWrapper>
-      <Typography mt={14} fontSize={28} fontWeight={600}>
+      <Typography
+        mt={15.25}
+        fontSize={34}
+        fontWeight={600}
+        fontFamily='"FiraGO", sans-serif'
+      >
         შექმენით ახალი დავალება
       </Typography>
       <CreateTaskSection openUserModal={openUserModal} />

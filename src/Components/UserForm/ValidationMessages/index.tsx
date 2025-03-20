@@ -80,6 +80,14 @@ const ValidationMessages: React.FC<Props> = ({
         message: `${field?.label?.replaceAll('*', '') || (fieldName === 'name' ? 'სახელი' : 'გვარი')} აუცილებელია`,
       },
     ];
+    if (field.type === 'date') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      messages.push({
+        condition: new Date(fieldValue) > today,
+        message: `თარიღი არ უნდა იყოს წარსული`,
+      });
+    }
   }
 
   return (

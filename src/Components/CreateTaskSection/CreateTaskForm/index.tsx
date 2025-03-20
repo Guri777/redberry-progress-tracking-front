@@ -12,7 +12,8 @@ interface Props {
   onSubmit: (data: FormValues) => void;
   formFields?: FormFieldType[];
 }
-
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 export const createTaskFormSchema = yup.object().shape({
   name: yup
     .string()
@@ -43,7 +44,10 @@ export const createTaskFormSchema = yup.object().shape({
     .number()
     .required('პასუხისმგებელი თანამშრომლის არჩევა სავალდებულოა'),
 
-  due_date: yup.date().required('დედლაინი სავალდებულოა'),
+  due_date: yup
+    .date()
+    .required('დედლაინი სავალდებულოა')
+    .min(today, 'დედლაინი არ შეიძლება იყოს წარსულში'), // Disable past dates,
 });
 
 const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
@@ -104,7 +108,7 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
       component='form'
       id='add-task-submission-form'
       onSubmit={handleSubmit(handleFormSubmit)}
-      maxWidth={{md: '70vw'}}
+      maxWidth={{ md: '76vw' }}
     >
       <Grid
         container
@@ -125,7 +129,7 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
                   ? 4
                   : (index % 2 === 0 && field.name !== 'due_date') ||
                       field.name === 'status_id'
-                    ? '16vw'
+                    ? '10vw'
                     : 2
                 : undefined
             }
@@ -144,6 +148,7 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
                 createTaskFormSchema,
                 field.name,
               )}
+              sx={{ maxWidth: 700 }}
             />
           </Grid>
         ))}
