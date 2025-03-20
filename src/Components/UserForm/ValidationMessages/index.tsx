@@ -90,7 +90,24 @@ const ValidationMessages: React.FC<Props> = ({
           key={index}
           style={{ color: msg.condition ? 'green' : 'red' }}
         >
-          {msg.condition ? '✔️' : '❌'} {msg.message}
+          {msg.condition ? (
+            <img
+              style={{ transform: 'translateY(5px)' }}
+              src='/images/icons/arrow-green.svg'
+              width={16}
+              height={16}
+              alt='arror-green'
+            />
+          ) : (
+            <img
+              style={{ transform: 'translateY(5px)' }}
+              src='/images/icons/arrow-red.svg'
+              width={16}
+              height={16}
+              alt='arrow-red'
+            />
+          )}{' '}
+          {msg.message}
         </Typography>
       ))}
     </Box>

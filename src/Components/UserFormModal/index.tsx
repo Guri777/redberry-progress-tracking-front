@@ -44,12 +44,12 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
   const [openSnackbar, setOpenSnackbar] = React.useState(false); // State for success snackbar
 
   const formFields: FormFieldType[] = [
-    { name: 'name', label: 'სახელი*', type: 'text' },
-    { name: 'surname', label: 'გვარი*', type: 'text' },
+    { name: 'name', label: 'სახელი *', type: 'text' },
+    { name: 'surname', label: 'გვარი *', type: 'text' },
     { name: 'avatar', label: 'Avatar', type: 'file' },
     {
       name: 'department_id',
-      label: 'დეპარტამენტი*',
+      label: 'დეპარტამენტი ',
       type: 'select',
       options: departments?.map((department) => ({
         label: department.name,
@@ -111,23 +111,30 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
           <DialogTitle>
             <Typography
               fontSize={30}
-              fontWeight={500}
+              fontWeight={600}
               textAlign='center'
-              pt={8}
+              pt={10}
               pb={2}
+              fontFamily='"FiraGO", sans-serif'
+              color='var(--task-card-title)'
             >
               თანამშრომლის დამატება
             </Typography>
             <IconButton
               aria-label='close'
               onClick={onClose}
-              sx={{ position: 'absolute', right: 8, top: 8 }}
+              sx={{ position: 'absolute', right: 50, top: 40 }}
             >
-              X
+              <img
+                src='/images/icons/close-icon.svg'
+                width={40}
+                height={40}
+                alt='close-icon'
+              />
             </IconButton>
           </DialogTitle>
 
-          <DialogContent sx={{ mb: 2, px: 5 }}>
+          <DialogContent sx={{ mb: 2, px: 6.25 }}>
             <UserForm onSubmit={onSubmit} formFields={formFields} />
           </DialogContent>
 

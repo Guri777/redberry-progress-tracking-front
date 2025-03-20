@@ -52,10 +52,10 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
   const [openSnackbar, setOpenSnackbar] = React.useState(false); // State for success snackbar
 
   const formFields: FormFieldType[] = [
-    { name: 'name', label: 'სათაური*', type: 'text' },
+    { name: 'name', label: 'სათაური *', type: 'text' },
     {
       name: 'department_id',
-      label: 'დეპარტამენტი*',
+      label: 'დეპარტამენტი ',
       type: 'select',
       options: departments?.map((department) => ({
         label: department.name,
@@ -65,13 +65,13 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
     },
     {
       name: 'description',
-      label: 'აღწერა*',
+      label: 'აღწერა',
       type: 'text',
       otherProps: { multiline: true, rows: 4 },
     },
     {
       name: 'employee_id',
-      label: 'პასუხისმგებელი თანამშრომელი*',
+      label: 'პასუხისმგებელი თანამშრომელი ',
       type: 'select',
 
       options: employees?.map((employee) => ({
@@ -93,7 +93,7 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
     },
     {
       name: 'priority_id',
-      label: 'პრიორიტეტი*',
+      label: 'პრიორიტეტი ',
       type: 'select',
       options: priorities?.map((priority) => ({
         label: priority.name,
@@ -104,7 +104,7 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
     },
     {
       name: 'status_id',
-      label: 'სტატუსი*',
+      label: 'სტატუსი ',
       type: 'select',
       options: statuses?.map((status) => ({
         label: status.name,
@@ -115,7 +115,7 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
 
     {
       name: 'due_date',
-      label: 'დედლაინი - თარიღი*',
+      label: 'დედლაინი *',
       type: 'date',
       otherProps: {
         inputProps: { min: new Date().toISOString().split('T')[0] },

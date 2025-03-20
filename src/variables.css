@@ -24,7 +24,12 @@
 
   --card-border: #cbcbcb;
   --task-card-title: #212529;
+  --text-secondary: #212529;
+
   --task-card-description: #343A40;
 
-  --filters-border: #DEE2E6
+  --filters-border: #DEE2E6;
+  --label-color: #343A40;
+
+  --input-label-color: #CED4DA;
 }

@@ -13,12 +13,12 @@ import {
   Typography,
   Box,
   Button,
+  SxProps,
 } from '@mui/material';
 import ImageUpload from '@/Components/ImageUpload';
 import ValidationMessages from '@/Components/UserForm/ValidationMessages';
-import { FormValues, FormFieldType } from '@/types/UserFormTypes';
+import { FormValues } from '@/types/UserFormTypes';
 import Spinner from '@/Components/Spinner';
-import CustomNavButton from '@/Components/Layout/CustomNavButton';
 
 interface Props {
   field: any;
@@ -31,6 +31,7 @@ interface Props {
   otherProps?: Record<string, any>;
   setValue?: UseFormSetValue<any>;
   possibleErrors?: any;
+  sx?: SxProps;
 }
 
 const FormField: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const FormField: React.FC<Props> = ({
   otherProps = {},
   setValue,
   possibleErrors,
+  sx,
 }) => {
   useEffect(() => {
     if (field?.attrs?.depends_on) {
@@ -91,6 +93,7 @@ const FormField: React.FC<Props> = ({
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
             sx={{
+              maxWidth: 384,
               minWidth: '50%',
               '& .MuiSelect-select': {
                 display: 'flex',
@@ -102,7 +105,22 @@ const FormField: React.FC<Props> = ({
                   : formState.touchedFields[field.name as keyof FormValues]
                     ? '1px solid green'
                     : '1px solid #D3D3D3',
+
+                '&::before, &:hover::before': {
+                  borderColor: 'transparent!important',
+                },
+                '&::after': {
+                  borderColor: 'transparent!important',
+                },
               },
+              '& .MuiInputLabel-root': {
+                color: 'var(--label-color)',
+                fontFamily: '"FiraGO", sans-serif',
+                fontSize: 14,
+                fontWeight: 600,
+                transform: 'translateY(-10px)',
+              },
+              ...sx,
             }}
             {...otherProps}
           >
@@ -220,14 +238,37 @@ const FormField: React.FC<Props> = ({
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
             sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: 'lightblue',
+                '& fieldset': {
+                  border: 'none',
+                },
+              },
+              maxWidth: 384,
               '& .MuiInputBase-root': {
-                borderRadius: '3px',
+                borderRadius: 1.5,
                 border: errors[field.name as keyof FormValues]
                   ? '1px solid red'
                   : formState.touchedFields[field.name as keyof FormValues]
                     ? '1px solid green'
-                    : '1px solid #D3D3D3',
+                    : '1px solid var(--input-label-color)',
+
+                '&::before, &:hover::before': {
+                  borderColor: 'transparent!important',
+                },
+                '&::after': {
+                  borderColor: 'transparent!important',
+                },
               },
+              '& .MuiInputLabel-root': {
+                color: 'var(--label-color)',
+                fontFamily: '"FiraGO", sans-serif',
+                fontSize: 14,
+                fontWeight: 600,
+                transform: 'translateY(-10px)',
+              },
+
+              ...sx,
             }}
             {...otherProps}
           />
@@ -259,7 +300,22 @@ const FormField: React.FC<Props> = ({
                   : formState.touchedFields[field.name as keyof FormValues]
                     ? '1px solid green'
                     : '1px solid #D3D3D3',
+
+                '&::before, &:hover::before': {
+                  borderColor: 'transparent!important',
+                },
+                '&::after': {
+                  borderColor: 'transparent!important',
+                },
               },
+              '& .MuiInputLabel-root': {
+                color: 'var(--label-color)',
+                fontFamily: '"FiraGO", sans-serif',
+                fontSize: 14,
+                fontWeight: 600,
+                transform: 'translateY(-10px)',
+              },
+              ...sx,
             }}
             {...otherProps}
           />

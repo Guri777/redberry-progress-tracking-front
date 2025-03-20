@@ -21,6 +21,22 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
               <Checkbox
                 checked={tempSelection.includes(option)}
                 onChange={() => handleCheckboxChange(option)}
+                icon={
+                  <img
+                    src='/images/icons/filters-checkbox.svg'
+                    width={20}
+                    height={20}
+                    alt='checkbox'
+                  />
+                }
+                checkedIcon={
+                  <img
+                    src='/images/icons/filters-checkbox-checked.svg'
+                    width={20}
+                    height={20}
+                    alt='checkbox-checked'
+                  />
+                }
               />
             }
             label={option}
