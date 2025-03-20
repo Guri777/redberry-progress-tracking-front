@@ -13,7 +13,7 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ handleFilterChange }) => {
         sx={{
           bgcolor: 'var(--primary)',
           px: 4,
-          fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+          fontFamily: '"Fredoka One", cursive',
         }}
         size='small'
         onClick={handleFilterChange}

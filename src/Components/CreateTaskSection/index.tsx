@@ -170,7 +170,7 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
           text='დაამატე თანამშრომელი'
           sx={{
             mr: 4,
-            fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+            fontFamily: '"Fredoka One", cursive',
             color: 'white',
           }}
         />

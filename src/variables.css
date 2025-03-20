@@ -3,24 +3,28 @@
   --nav-primary: #8338ec;
   --nav-secondary: #e7e7e7;
 
-  --board-column-to-do: #fbc02d;
-  --board-column-progress: #ff5722;
-  --board-column-ready-to-test: #e91e63;
-  --board-column-completed: #2196f3;
+  --board-column-to-do: #f7bc30;
+  --board-column-progress: #fb5607;
+  --board-column-ready-to-test: #ff006e;
+  --board-column-completed: #3a86ff;
 
   /* Department Colors */
-  --department-admin: #ff5733;
+  --department-admin: #ff66a8;
   --department-human-resources: #33ff57;
   --department-finance: #3357ff;
-  --department-sales-marketing: #ff33a1;
-  --department-logistics: #ffc300;
+  --department-sales-marketing: #fd9a6a;
+  --department-logistics: #89b6ff;
   --department-technology: #900c3f;
   --department-media: #8e44ad;
 
   /* Status Icon Colors */
-  --status-low: green;
-  --status-medium: yellow;
-  --status-high: red;
+  --status-low: #08a508;
+  --status-medium: #ffbe0b;
+  --status-high: #fa4d4d;
 
   --card-border: #cbcbcb;
+  --task-card-title: #212529;
+  --task-card-description: #343A40;
+
+  --filters-border: #DEE2E6
 }

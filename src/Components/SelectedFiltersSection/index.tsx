@@ -35,7 +35,7 @@ const SelectedFiltersSection: React.FC<SelectedFiltersSectionProps> = ({
       <Typography
         onClick={removeAllFilters}
         p='8px 16px'
-        fontFamily="'Noto Sans Georgian', Arial, sans-serif"
+        fontFamily='"Fredoka One", cursive'
         fontSize={12}
         sx={{ cursor: 'pointer' }}
       >

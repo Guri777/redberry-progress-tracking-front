@@ -51,7 +51,12 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
 
       {!isLoading && (
         <>
-          <Typography mt={14} fontWeight={600} fontSize={24}>
+          <Typography
+            mt={17.875}
+            fontWeight={600}
+            fontSize={34}
+            fontFamily='"FiraGO", sans-serif'
+          >
             დავალებების გვერდი
           </Typography>
 
@@ -60,9 +65,9 @@ const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
             display='flex'
             gap={4}
             mb={5}
-            mt={5}
+            mt={6.5}
             flexWrap='wrap'
-            border='1px solid gray'
+            border='1px solid var(--filters-border)'
             borderRadius={2}
             maxWidth='fit-content'
           >

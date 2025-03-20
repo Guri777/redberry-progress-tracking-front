@@ -30,10 +30,10 @@ export type FilterKey =
   | 'priorities';
 
 export const FILTER_GEORGIAN_LABELS = {
-  departments: 'დეპარტამენტენი',
+  departments: 'დეპარტამენტი',
   priorities: 'პრიორიტეტი',
   assignees: 'თანამშრომელი',
-  department: 'დეპარტამენტენი',
+  department: 'დეპარტამენტი',
   priority: 'პრიორიტეტი',
   assignee: 'თანამშრომელი',
 };

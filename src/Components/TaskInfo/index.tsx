@@ -22,7 +22,7 @@ const TaskInfo = ({ task }: TaskInfoProps) => {
       <Grid item>
         <StatusIcon title={task.priority.name} icon={task.priority.icon} />
       </Grid>
-      <Grid item>
+      <Grid item sx={{ transform: 'translateX(-20px)' }}>
         <DepartmentIcon title={task.department.name} />
       </Grid>
       <Grid item>

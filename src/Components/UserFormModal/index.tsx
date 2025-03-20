@@ -137,7 +137,7 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
               onClick={onClose}
               variant='outlined'
               sx={{
-                fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+                fontFamily: '"Fredoka One", cursive',
                 color: 'black',
               }}
             />
@@ -149,7 +149,7 @@ const UserFormModal: React.FC<Props> = ({ open, onClose }) => {
               text='დაამატე თანამშრომელი'
               sx={{
                 mr: 4,
-                fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+                fontFamily: '"Fredoka One", cursive',
                 color: 'white',
               }}
             />

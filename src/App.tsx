@@ -2,7 +2,12 @@ import '@/App.css';
 import { NavButton } from '@/types';
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
 
 import Home from '@/pages/Home';
 import Nav from '@/Components/Layout/Nav';
@@ -37,13 +42,17 @@ function App() {
     {
       text: 'თანამშრომლის შექმნა',
       variant: 'outlined',
+      sx: { fontSize: 16 },
+
       onClick: openUserModal,
     },
     {
       text: 'შექმენი ახალი დავალება',
       prefix: '+ ',
-      sx: { color: 'white' },
-      onClick: () => {navigate('/create-task')}
+      sx: { color: 'white', fontSize: 16 },
+      onClick: () => {
+        navigate('/create-task');
+      },
     },
   ];
   return (
@@ -65,10 +74,7 @@ function App() {
           path='create-task'
           element={<CreateTask openUserModal={openUserModal} />}
         />
-          <Route
-    path='task/:taskId'  // Define the dynamic taskId parameter
-    element={<TaskSingle />}  // Component to handle task detail display
-  />
+        <Route path='task/:taskId' element={<TaskSingle />} />
       </Routes>
     </>
   );

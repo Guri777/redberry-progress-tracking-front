@@ -33,15 +33,19 @@ const DepartmentIcon = (props: StatusIconProps) => {
             color='white'
             noWrap
             bgcolor={DEPARTMENT_COLORS[title]}
-            borderRadius={20}
+            borderRadius={15}
             sx={{
-              maxWidth: '100px',
+              maxWidth: '54px',
+              maxHeight: 24,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
-              display: 'block',
+              textAlign: 'center',
               px: 2,
-              py: '5px',
+              pt: '8px',
+              minHeight: '24px',
+              fontSize: 12,
+              fontFamily: '"FiraGO", sans-serif',
             }}
           >
             {title}

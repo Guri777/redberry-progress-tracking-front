@@ -10,7 +10,11 @@ interface DueDateProps {
 const DueDate = (props: DueDateProps) => {
   const { date, sx } = props;
 
-  return <Typography sx={sx}>{date}</Typography>;
+  return (
+    <Typography fontSize={12} sx={sx} fontFamily='"FiraGO", sans-serif'>
+      {date}
+    </Typography>
+  );
 };
 
 export default DueDate;

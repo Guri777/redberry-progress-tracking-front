@@ -31,7 +31,6 @@ const CustomDrawerButton = (props: CustomDrawerButtonProps) => {
       <Divider sx={{ borderColor: 'black', opacity: 0.1 }} />
       <Stack alignItems='center' padding='26px 32px 36px'>
         <CustomNavButton
-          // onClick={() => handleClick(pathname === href + '/')}
           onClick={() => handleClick(false)}
           prefix={prefix}
           variant={variant}
@@ -39,7 +38,7 @@ const CustomDrawerButton = (props: CustomDrawerButtonProps) => {
           sx={{
             color: 'black',
             borderColor: 'black',
-            fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+            fontFamily: '"Fredoka One", cursive',
             minWidth: '80vw',
             ...sx,
           }}

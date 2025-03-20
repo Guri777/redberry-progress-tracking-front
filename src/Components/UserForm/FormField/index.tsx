@@ -115,7 +115,7 @@ const FormField: React.FC<Props> = ({
                   ml: 5.5,
                   my: 1,
                   position: 'relative',
-                  fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+                  fontFamily: '"Fredoka One", cursive',
                 }}
                 onClick={field.addButton.onClick}
               >

@@ -25,18 +25,29 @@ const TaskCard = ({ task, borderColor: _borderColor }: TaskCardProps) => {
       onClick={handleTaskClick}
       sx={{
         cursor: 'pointer',
-        mt: 2,
+        mt: 4,
         borderRadius: 2,
         pt: 2,
         borderColor: _borderColor ?? 'inherit',
       }}
     >
       <TaskInfo task={task} />
-      <CardContent>
-        <Typography variant='subtitle1' fontWeight='bold'>
+      <CardContent sx={{ mx: 1.5 }}>
+        <Typography
+          variant='subtitle1'
+          color='var(--task-card-title)'
+          fontWeight={600}
+          fontSize={15}
+          sx={{ opacity: 0.8 }}
+          fontFamily='"FiraGO", sans-serif'
+        >
           {task.name}
         </Typography>
-        <Typography variant='body2' color='textSecondary'>
+        <Typography
+          variant='body2'
+          color='var(--task-card-description)'
+          fontFamily='"FiraGO", sans-serif'
+        >
           {task.description}
         </Typography>
         <TaskFooter task={task} />

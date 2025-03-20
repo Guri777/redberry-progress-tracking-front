@@ -24,7 +24,8 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       sx={{
         border: 'none',
         color: 'black',
-        fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+        fontSize: 16,
+        fontFamily: '"FiraGO", sans-serif',
       }}
       onClick={(e) => handleOpenFilter(e, filterKey)}
     >
@@ -38,7 +39,13 @@ const FilterButton: React.FC<FilterButtonProps> = ({
           ml: 0.5,
         }}
       >
-        v
+        <img
+          style={{ paddingTop: '6px' }}
+          src='/images/icons/accordionicon.svg'
+          width={20}
+          height={20}
+          alt='hourglass'
+        />
       </Box>
     </Button>
   );

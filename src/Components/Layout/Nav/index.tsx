@@ -66,12 +66,20 @@ const Nav = (props: NavButtonProps) => {
             >
               <Button onClick={() => navigate('/')}>
                 <Typography
-                  fontSize={25}
+                  fontSize={31}
+                  fontFamily='"Fredoka One", cursive'
                   color={drawerOpen ? 'white' : 'var(--nav-primary)'}
+                  sx={{ textTransform: 'none' }}
                 >
                   Momentum
                 </Typography>
-                {/* TODO ADD SVG */}
+                <img
+                  style={{ paddingLeft: '4px' }}
+                  src='/images/icons/hourglass.svg'
+                  width={38}
+                  height={38}
+                  alt='hourglass'
+                />
               </Button>
               {isMd ? (
                 <CustomDrawer
@@ -97,7 +105,7 @@ const Nav = (props: NavButtonProps) => {
                       <CustomNavButton
                         key={index}
                         sx={{
-                          fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+                          fontFamily: '"FiraGO", sans-serif',
                           color: 'black',
                           ...sx,
                         }}

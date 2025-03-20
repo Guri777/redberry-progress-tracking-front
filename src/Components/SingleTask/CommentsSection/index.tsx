@@ -32,7 +32,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
             ml: 7,
             my: 0.5,
             color: 'var(--primary)',
-            fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+            fontFamily: '"Fredoka One", cursive',
           }}
         >
           უპასუხე

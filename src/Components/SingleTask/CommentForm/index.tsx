@@ -34,7 +34,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
       text='დააკომენტარე'
       variant='filled'
       sx={{
-        fontFamily: "'Noto Sans Georgian', Arial, sans-serif",
+        fontFamily: '"Fredoka One", cursive',
 
         color: 'white',
         ml: 'auto',
