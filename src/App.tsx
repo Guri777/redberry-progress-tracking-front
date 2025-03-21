@@ -15,6 +15,7 @@ import CreateTask from './pages/CreateTask';
 import UserFormModal from './Components/UserFormModal';
 import { useSearchParams } from 'react-router-dom';
 import TaskSingle from './pages/TaskSingle';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -38,12 +39,12 @@ function App() {
       setIsUserModalOpen(true);
     }
   }, [searchParams]);
+
   const buttons: NavButton[] = [
     {
       text: 'თანამშრომლის შექმნა',
       variant: 'outlined',
       sx: { fontSize: 16 },
-
       onClick: openUserModal,
     },
     {
@@ -55,27 +56,61 @@ function App() {
       },
     },
   ];
+
   return (
     <>
       <Nav buttons={buttons} />
       <UserFormModal open={isUserModalOpen} onClose={handleUserModalClose} />
 
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <Home
-              isUserModalOpen={isUserModalOpen}
-              setIsUserModalOpen={setIsUserModalOpen}
-            />
-          }
-        />
-        <Route
-          path='create-task'
-          element={<CreateTask openUserModal={openUserModal} />}
-        />
-        <Route path='task/:taskId' element={<TaskSingle />} />
-      </Routes>
+      <AnimatePresence>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <motion.div
+                key='home'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Home
+                  isUserModalOpen={isUserModalOpen}
+                  setIsUserModalOpen={setIsUserModalOpen}
+                />
+              </motion.div>
+            }
+          />
+          <Route
+            path='create-task'
+            element={
+              <motion.div
+                key='create-task'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CreateTask openUserModal={openUserModal} />
+              </motion.div>
+            }
+          />
+          <Route
+            path='task/:taskId'
+            element={
+              <motion.div
+                key='task-single'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TaskSingle />
+              </motion.div>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
     </>
   );
 }
