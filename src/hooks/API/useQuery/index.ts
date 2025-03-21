@@ -1,8 +1,8 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://momentum.redberryinternship.ge/api';
-const BEARER_TOKEN = '9e6c6a5d-4451-409b-b271-d67750053df0';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BEARER_TOKEN = import.meta.env.VITE_BEARER_TOKEN;
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
