@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Box } from '@mui/material';
+import { useSearchParams } from 'react-router-dom'; // react-router-dom-ის ჰუკი
 import { FILTER_GEORGIAN_LABELS, FilterKey } from '@/utils/consts';
 
 type FilterButtonProps = {
@@ -16,15 +17,19 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   openFilter,
   handleOpenFilter,
 }) => {
+  const [searchParams] = useSearchParams();
   const rotateAngle = openFilter === filterKey ? 180 : 0;
+
+  const isFilterActive =
+    openFilter === filterKey || searchParams.has(filterKey);
 
   return (
     <Button
       variant='outlined'
       sx={{
         border: 'none',
-        color: 'black',
         fontSize: 16,
+        color: isFilterActive ? 'var(--primary)' : 'black',
         fontFamily: '"FiraGO", sans-serif',
       }}
       onClick={(e) => handleOpenFilter(e, filterKey)}
@@ -41,7 +46,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       >
         <img
           style={{ paddingTop: '6px' }}
-          src='/images/icons/accordionicon.svg'
+          src={`/images/icons/accordionicon${isFilterActive ? '-primary' : ''}.svg`}
           width={20}
           height={20}
           alt='hourglass'
