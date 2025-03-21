@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import CustomWrapper from '@/Components/Layout/CustomWrapper';
 import { Typography } from '@mui/material';
@@ -9,6 +9,9 @@ interface CreateTaskProps {
 }
 
 const CreateTask: React.FC<CreateTaskProps> = ({ openUserModal }) => {
+  useEffect(() => {
+    document.title = 'Create Task';
+  }, []);
   return (
     <CustomWrapper>
       <Typography

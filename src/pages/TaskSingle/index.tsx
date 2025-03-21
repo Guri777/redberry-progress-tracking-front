@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { Box, Grid, CircularProgress, Typography } from '@mui/material';
@@ -84,6 +84,9 @@ const TaskSingle: React.FC = () => {
   if (taskError || !task)
     return <Typography color='error'>Error loading task</Typography>;
 
+  useEffect(() => {
+    document.title = task.name ?? 'Task';
+  }, []);
   return (
     <CustomWrapper sx={{ mt: 15 }}>
       <Grid container>

@@ -170,9 +170,9 @@ const CreateTaskSection: React.FC<CreateTaskSectionProps> = ({
         <CustomNavButton
           onClick={() => addTask()}
           variant='filled'
-          text='დაამატე თანამშრომელი'
+          text='დავალების შექმნა'
           sx={{
-            mr: 4,
+            mr: 5,
             fontFamily: '"Fredoka One", cursive',
             color: 'white',
           }}

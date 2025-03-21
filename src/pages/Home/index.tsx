@@ -9,8 +9,6 @@ import { useFilters } from '@/hooks/useFilters';
 import { Task } from '@/types';
 import { FilterKey } from '@/utils/consts';
 import SelectedFiltersSection from '@/Components/SelectedFiltersSection';
-import UserFormModal from '@/Components/UserFormModal'; // Import the modal component
-import { useSearchParams } from 'react-router-dom';
 
 interface HomeProps {
   isUserModalOpen: boolean;
@@ -18,6 +16,9 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ isUserModalOpen, setIsUserModalOpen }) => {
+  useEffect(() => {
+    document.title = 'Tasks';
+  }, []);
   const { data, error, isLoading } = useFetchQuery<Task[]>('tasks', '/tasks');
   const {
     openFilter,
