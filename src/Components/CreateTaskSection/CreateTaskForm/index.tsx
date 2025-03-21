@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useFormPersist from 'react-hook-form-persist';
@@ -55,9 +55,10 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
     localStorage.getItem('createTaskForm') || '{}',
   );
 
-  const filteredData = Object.fromEntries(
+  let filteredData = Object.fromEntries(
     Object.entries(storedFormData).filter(([key, value]) => value !== ''),
   );
+
   if (!filteredData.priority_id) {
     filteredData.priority_id = 2;
   }
@@ -69,6 +70,9 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
     tomorrow.setDate(tomorrow.getDate() + 1);
     filteredData.due_date = tomorrow.toISOString().split('T')[0];
   }
+  filteredData.priority_id = Number(filteredData.priority_id);
+  filteredData.status_id = Number(filteredData.status_id);
+  filteredData.department_id = Number(filteredData.department_id);
 
   const { register, handleSubmit, setValue, watch, reset, control, formState } =
     useForm<any>({
@@ -77,13 +81,11 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
       defaultValues: filteredData ?? { priority_id: 1 },
     });
 
-  useFormPersist('createTaskForm', {
-    watch,
-    setValue,
-    storage: window.localStorage,
-  });
+  const isSubmitting = useRef(false);
 
   useEffect(() => {
+    if (isSubmitting.current) return;
+
     const subscription = watch((data) => {
       localStorage.setItem('createTaskForm', JSON.stringify(data));
     });
@@ -91,9 +93,17 @@ const CreateTaskForm: React.FC<Props> = ({ onSubmit, formFields }) => {
   }, [watch]);
 
   const handleFormSubmit = (data: FormValues) => {
-    onSubmit(data);
+    isSubmitting.current = true;
+
     localStorage.removeItem('createTaskForm');
-    reset();
+
+    reset({}, { keepValues: false });
+
+    Object.keys(filteredData).forEach((key) => delete filteredData[key]);
+
+    isSubmitting.current = false;
+
+    onSubmit(data);
   };
 
   const SHRUNK_FIELDS = ['priority_id', 'status_id'];

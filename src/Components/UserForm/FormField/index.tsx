@@ -88,7 +88,7 @@ const FormField: React.FC<Props> = ({
                 : false
             }
             required
-            defaultValue={value} // Use the first option as the default
+            defaultValue={value ?? ''} // Use the first option as the default
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
             sx={{

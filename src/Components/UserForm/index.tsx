@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useFormPersist from 'react-hook-form-persist';
@@ -25,19 +25,28 @@ const UserForm: React.FC<Props> = ({ onSubmit, formFields }) => {
       defaultValues: filteredData,
     });
 
-  useFormPersist('userForm', { watch, setValue, storage: window.localStorage });
+  const isSubmitting = useRef(false);
 
   useEffect(() => {
+    if (isSubmitting.current) return;
+
     const subscription = watch((data) => {
       localStorage.setItem('userForm', JSON.stringify(data));
     });
     return () => subscription.unsubscribe();
   }, [watch]);
-
   const handleFormSubmit = (data: FormValues) => {
+    isSubmitting.current = true;
+
+    localStorage.removeItem('createTaskForm');
+
+    reset({}, { keepValues: false });
+
+    Object.keys(filteredData).forEach((key) => delete filteredData[key]);
+
+    isSubmitting.current = false;
+
     onSubmit(data);
-    localStorage.removeItem('userForm');
-    reset();
   };
 
   return (
@@ -64,7 +73,27 @@ const UserForm: React.FC<Props> = ({ onSubmit, formFields }) => {
                 formState={formState}
                 errors={formState.errors}
                 possibleErrors={extractValidationRules(schema, field.name)}
-                sx={{ minWidth: 380 }}
+                sx={{
+                  minWidth: 380,
+                  input: {
+                    px: 1,
+                    bgcolor: 'var(--new-task-input-bg)',
+                    borderRadius: '6px',
+                  },
+                  textarea: {
+                    bgcolor: 'var(--new-task-input-bg)',
+                    borderRadius: '6px',
+                    px: 1,
+                  },
+                  '& .MuiSelect-select': {
+                    bgcolor: 'var(--new-task-input-bg)',
+                    display: 'flex',
+                    px: 1,
+                  },
+                  '& .MuiInputBase-multiline': {
+                    py: 0,
+                  },
+                }}
               />
             </Grid>
           ),
