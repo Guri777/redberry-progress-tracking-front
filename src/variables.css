@@ -35,4 +35,7 @@
 
   --new-task-bg: rgba(221, 210, 255, 0.2);
   --new-task-input-bg: #FFFFFF;
+  
+  --comments-section-bg: #F8F3FEA6;
+  --comments-section-border: #DDD2FF;
 }

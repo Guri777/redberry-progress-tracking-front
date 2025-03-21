@@ -83,20 +83,52 @@ const TaskSingle: React.FC = () => {
     <CustomWrapper sx={{ mt: 15 }}>
       <Grid container>
         <TaskDetails task={task} statuses={statuses || []} taskId={taskId} />
-        <Grid item xs={12} sm={6}>
-          <Box mt={5} p={3} border='1px solid #E0E0E0' borderRadius='8px'>
+        <Grid item xs={12} sm={5.3} ml='auto'>
+          <Box
+            mt={5}
+            p={3}
+            border='1px solid var(--comments-section-border)'
+            bgcolor='var(--comments-section-bg)'
+            borderRadius='10px'
+          >
             <CommentForm
               comment={comment}
               onCommentChange={setComment}
               onSubmit={handleAddComment}
               replyingTo={answeringId?.author}
             />
-            <Typography variant='h6' fontWeight='bold' mb={2}>
-              კომენტარები ({calculateTotalComments(dbComments)})
+            <Typography
+              variant='h6'
+              fontWeight='bold'
+              fontFamily='"FiraGO", sans-serif'
+              mb={2}
+              ml={4}
+              gap={1}
+              display='flex'
+              justifyContent='start'
+              alignItems='center'
+            >
+              კომენტარები{' '}
+              <Box
+                component='span'
+                bgcolor='var(--primary)'
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+                color='white'
+                minWidth={20}
+                borderRadius='50%'
+                p={0.5}
+                fontSize={14}
+              >
+                {calculateTotalComments(dbComments)}
+              </Box>
             </Typography>
             <CommentSection
               comments={dbComments || []}
-              onReply={(id, author) => setAnsweringId({ id, author })}
+              onReply={(id, author) =>
+                setAnsweringId({ id: id || '', author: author || '' })
+              }
             />
           </Box>
         </Grid>

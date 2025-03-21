@@ -13,6 +13,7 @@ import StatusIcon from '@/Components/StatusIcon';
 import DepartmentIcon from '@/Components/DepartmentIcon';
 import { usePostMutation } from '@/hooks/API/usePostMutation';
 import { useQueryClient } from '@tanstack/react-query';
+import { formatGeorgianDate } from '@/utils/helpers';
 
 interface TaskDetailsProps {
   task: Task;
@@ -72,21 +73,46 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
         <StatusIcon title={task.priority.name} icon={task.priority.icon} />
         <DepartmentIcon title={task.department.name} />
       </Box>
-      <Typography variant='h4' fontWeight='bold'>
+      <Typography variant='h4' fontWeight='600'>
         {task.name}
       </Typography>
-      <Typography variant='body1' color='text.secondary' my={3}>
+      <Typography
+        variant='body1'
+        color='text.secondary'
+        mt={4.5}
+        mb={8}
+        fontFamily='"FiraGO", sans-serif'
+      >
         {task.description}
       </Typography>
 
       <Box mt={3}>
-        <Typography variant='subtitle1' fontSize={24}>
+        <Typography
+          variant='subtitle1'
+          fontWeight={600}
+          fontFamily='"FiraGO", sans-serif'
+          fontSize={24}
+          mb={2.25}
+        >
           დავალების დეტალები
         </Typography>
         <Stack mt={2} gap={4}>
           <Grid container gap={10}>
-            <Grid item width={160}>
-              X სტატუსი
+            <Grid
+              item
+              width={160}
+              display='flex'
+              justifyContent='start'
+              alignItems='center'
+            >
+              <img
+                style={{ paddingRight: '6px' }}
+                src='/images/icons/status.svg'
+                width={24}
+                height={24}
+                alt='status'
+              />{' '}
+              სტატუსი
             </Grid>
             <Grid item>
               <TextField
@@ -106,6 +132,20 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
                   '& .MuiInputBase-root': {
                     borderRadius: '3px',
                     border: '1px solid #D3D3D3',
+
+                    '&::before, &:hover::before': {
+                      borderColor: 'transparent!important',
+                    },
+                    '&::after': {
+                      borderColor: 'transparent!important',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'var(--label-color)',
+                    fontFamily: '"FiraGO", sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    transform: 'translateY(-10px)',
                   },
                 }}
               >
@@ -118,8 +158,23 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
             </Grid>
           </Grid>
           <Grid container gap={10}>
-            <Grid item width={160}>
-              X თანამშრომელი
+            <Grid
+              item
+              width={160}
+              display='flex'
+              justifyContent='start'
+              alignItems='center'
+            >
+              <img
+                style={{ paddingRight: '6px' }}
+                src='/images/icons/employee.svg'
+                width={24}
+                height={24}
+                alt='employee'
+              />{' '}
+              <Typography fontFamily='"FiraGO", sans-serif'>
+                თანამშრომელი
+              </Typography>
             </Grid>
             <Grid item display='flex'>
               <Avatar
@@ -137,12 +192,25 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
             </Grid>
           </Grid>
           <Grid container gap={10}>
-            <Grid item width={160}>
-              X დავალების ვადა
+            <Grid
+              item
+              width={162}
+              display='flex'
+              justifyContent='start'
+              alignItems='center'
+            >
+              <img
+                style={{ paddingRight: '6px' }}
+                src='/images/icons/due-date.svg'
+                width={24}
+                height={24}
+                alt='due daate'
+              />{' '}
+              <Typography fontFamily='"FiraGO", sans-serif'>
+                დავალების ვადა
+              </Typography>
             </Grid>
-            <Grid item>
-              {`${new Intl.DateTimeFormat('ka-GE', { weekday: 'long' }).format(new Date(task.due_date))}, ${new Date(task.due_date).toLocaleDateString('ka-GE')}`}
-            </Grid>
+            <Grid item>{formatGeorgianDate(new Date(task.due_date))}</Grid>
           </Grid>
         </Stack>
       </Box>

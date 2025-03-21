@@ -15,7 +15,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
   onSubmit,
   replyingTo,
 }) => (
-  <Stack>
+  <Stack maxWidth='94%'>
     {replyingTo && (
       <Typography pb={1} fontWeight={600}>
         შენ პასუხობ {replyingTo} -ს!
@@ -23,12 +23,12 @@ const CommentForm: React.FC<CommentFormProps> = ({
     )}
     <TextField
       fullWidth
-      placeholder='დაამატე კომენტარი'
+      placeholder='დაწერე კომენტარი'
       value={comment}
       multiline
-      rows={4}
+      rows={6}
       onChange={(e) => onCommentChange(e.target.value)}
-      sx={{ mb: 2 }}
+      sx={{ m: '16px 21px 42px', bgcolor: 'white' }}
     />
     <CustomNavButton
       text='დააკომენტარე'
@@ -39,7 +39,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
         color: 'white',
         ml: 'auto',
         borderRadius: 10,
-        transform: 'translate(-20px,-70px)',
+        transform: 'translate(0px,-100px)',
       }}
       onClick={onSubmit}
     />

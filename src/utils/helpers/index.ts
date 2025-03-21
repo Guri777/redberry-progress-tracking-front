@@ -55,3 +55,36 @@ export const extractValidationRules = (
     ),
   };
 };
+
+export const formatGeorgianDate = (date: Date) => {
+  const days = [
+    'კვირა',
+    'ორშაბათი',
+    'სამშაბათი',
+    'ოთხშაბათი',
+    'ხუთშაბათი',
+    'პარასკევი',
+    'შაბათი',
+  ];
+  const months = [
+    'იანვარი',
+    'თებერვალი',
+    'მარტი',
+    'აპრილი',
+    'მაისი',
+    'ივნისი',
+    'ივლისი',
+    'აგვისტო',
+    'სექტემბერი',
+    'ოქტომბერი',
+    'ნოემბერი',
+    'დეკემბერი',
+  ];
+
+  const dayOfWeek = days[date.getDay()]; // კვირის დღე
+  const day = date.getDate(); // დღე
+  const month = months[date.getMonth()]; // თვე
+  const year = date.getFullYear(); // წელი
+
+  return `${dayOfWeek}, ${day} ${month} ${year}`;
+};
