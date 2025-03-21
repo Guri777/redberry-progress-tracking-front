@@ -20,6 +20,9 @@ const TaskSingle: React.FC = () => {
   } | null>(null);
   const [comment, setComment] = useState('');
 
+  useEffect(() => {
+    document.title = 'Task';
+  }, []);
   const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
     null,
   );
@@ -84,9 +87,6 @@ const TaskSingle: React.FC = () => {
   if (taskError || !task)
     return <Typography color='error'>Error loading task</Typography>;
 
-  useEffect(() => {
-    document.title = task.name ?? 'Task';
-  }, []);
   return (
     <CustomWrapper sx={{ mt: 15 }}>
       <Grid container>
