@@ -29,6 +29,11 @@ const TaskCard = ({ task, borderColor: _borderColor }: TaskCardProps) => {
         borderRadius: 2,
         pt: 2,
         borderColor: _borderColor ?? 'inherit',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.01)',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+        },
       }}
     >
       <TaskInfo task={task} />
