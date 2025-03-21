@@ -20,6 +20,10 @@ const TaskSingle: React.FC = () => {
   } | null>(null);
   const [comment, setComment] = useState('');
 
+  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
+    null,
+  );
+
   const {
     data: task,
     error: taskError,
@@ -59,6 +63,7 @@ const TaskSingle: React.FC = () => {
         });
         setComment('');
         setAnsweringId(null);
+        setSelectedCommentId(null);
       },
       onError: (error) => {
         console.error('Error submitting form:', error.message);
@@ -129,6 +134,8 @@ const TaskSingle: React.FC = () => {
               onReply={(id, author) =>
                 setAnsweringId({ id: id || '', author: author || '' })
               }
+              selectedCommentId={selectedCommentId}
+              setSelectedCommentId={setSelectedCommentId}
             />
           </Box>
         </Grid>

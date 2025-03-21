@@ -5,16 +5,16 @@ import { Box, Avatar, Typography, Button } from '@mui/material';
 interface CommentSectionProps {
   comments: Comment[];
   onReply: (id?: string, author?: string) => void;
+  selectedCommentId: string | null;
+  setSelectedCommentId: (selectedCommentId: string | null) => void;
 }
 
 const CommentSection: React.FC<CommentSectionProps> = ({
   comments,
   onReply,
+  selectedCommentId,
+  setSelectedCommentId,
 }) => {
-  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
-    null,
-  );
-
   const handleReplyClick = (id: string, author: string) => {
     setSelectedCommentId(id === selectedCommentId ? null : id); // ტოგლი არჩეული კომენტარის ID
     if (id === selectedCommentId) {
